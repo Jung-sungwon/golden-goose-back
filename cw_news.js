@@ -1,10 +1,6 @@
 const _ = require("lodash");
 const { google } = require("googleapis");
 const mongoose = require("mongoose");
-const {
-  client_email,
-  private_key,
-} = require("./goldproject-378412-847398aba5e7.json");
 const puppeteer = require("puppeteer");
 require("dotenv").config();
 const newsModel = require("./models/newsModel");
@@ -100,9 +96,12 @@ let dum;
 
   await (async function connectSpread() {
     // 스프레드시트와 연동하기
-    const authorize = new google.auth.JWT(client_email, null, private_key, [
-      "https://www.googleapis.com/auth/spreadsheets",
-    ]);
+    const authorize = new google.auth.JWT(
+      process.env.client_email,
+      null,
+      process.env.private_key.replaceAll("\\n", "\n"),
+      ["https://www.googleapis.com/auth/spreadsheets"]
+    );
 
     // google spread sheet api 가져오기
     const googleSheet = google.sheets({
