@@ -98,6 +98,7 @@ exports.signup = (req, res) => {
 
 exports.active = (req, res) => {
   const data = req.body;
+  console.log("ddddaata : ", data);
   jwt.verify(data.token, process.env.SECRET, (err, decoded) => {
     if (err) {
       console.log("계정 활성화 에러 : ", err);
